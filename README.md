@@ -3,8 +3,8 @@
 1. Node module installieren mit `npm i`
 
 Projekt:
-– Node
-– Express als Middleware zzgl. body-parser
+(y) – Node
+(y) – Express als Middleware zzgl. body-parser
 – MongoDB und  mongoose
 – TypeScript mit TSLint
 – validator
