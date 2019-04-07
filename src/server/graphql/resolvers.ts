@@ -1,3 +1,11 @@
+import {
+  addKunde,
+  changeKunde,
+  deleteKunde,
+  alleKunden,
+  einKunde
+} from "../db/mongo";
+
 export const resolvers = {
   //   Query: {
   //     alleKunden() {
