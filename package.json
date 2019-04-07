@@ -4,7 +4,8 @@
   "description": "Gruppenprojekt",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --verbose",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/server/app.ts",
+    "start": "node dist/server/app.js",
     "tsc": "npx --no-install tsc -w",
     "tslint": "ts-node scripts/tslint"
   },
@@ -37,6 +38,7 @@
     "mocha": "^6.1.0",
     "supertest": "^4.0.2",
     "ts-node": "^8.0.3",
+    "ts-node-dev": "^1.0.0-pre.32",
     "tslint": "^5.15.0",
     "typescript": "^3.4.2"
   }

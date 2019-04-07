@@ -24,6 +24,12 @@ Erwartet:
 
 ##Routineaufgaben
 
+## Starten der Entwicklungs-Preview
+
+```CMD
+    npm run dev
+```
+
 ### Starten und Herunterfahren von MongoDB
 
 Manueller start mit Compass
