@@ -1,26 +1,19 @@
+// https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express
 import express = require("express");
-import graphqlHTTP = require("express-graphql");
-import GraphQLSchema = require("./graphql/graphqlSchema");
+const { ApolloServer } = require("apollo-server-express");
+import { resolvers } from "./graphql/resolvers";
+import { typeDefs } from "./graphql/typeDefs";
 
-// Create a new express application instance
-const app: express.Application = express();
+const server = new ApolloServer({ typeDefs, resolvers });
+
+const app = express();
+server.applyMiddleware({ app });
 
 //  https://medium.com/javascript-in-plain-english/typescript-with-node-and-express-js-why-when-and-how-eb6bc73edd5d
 app.get("/", function(req, res) {
   res.send("Hello World!");
 });
 
-//  TODO: Rest routes
-
-// https://github.com/graphql/express-graphql
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: GraphQLSchema,
-    graphiql: true
-  })
+app.listen({ port: 4000 }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
-
-app.listen(3000, function() {
-  console.log("Example app listening on port 3000!");
-});
