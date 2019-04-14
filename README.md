@@ -1,7 +1,7 @@
 # SWE Projekt Aufgabe 1: ME(A)N
 
 #### Projekt:
-– (y)  Node
+- (y)  Node
 - (y) MongoDB und mongoose
 - (y) TypeScript mit TSLint
 - (y) validator
