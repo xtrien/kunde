@@ -1,5 +1,6 @@
 import { Kunde, validateKunde } from "../model/kunde";
 import { hashPw, checkPw } from "../crypt/crypt";
+import { sendMail } from "../mail/mailer";
 const { createToken } = require("../crypt/auth");
 
 export const login = async (args: any) => {
@@ -27,7 +28,11 @@ export const addKunde = async (args: any) => {
   args.passWord = hashedpw;
   return await Kunde.create(args)
     .then(function() {
-      // Todo: Nodemailer mit Benachrichtigung
+      sendMail(
+        args.email,
+        "Willkommen zur Kundenverwaltung",
+        "Guten Tag \n Sie wurden in die Beispiel-Kundenverwaltung aufgenommen. \n Mit freundlichen Gruessen, \n die Kundenverwaltung"
+      );
       return { status: "success", message: "Kunde wurde erfolgreich erstellt" };
     })
     .catch(function(err: any) {

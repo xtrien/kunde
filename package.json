@@ -7,7 +7,9 @@
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server/app.ts",
     "start": "node dist/server/app.js",
     "tsc": "npx --no-install tsc -w",
-    "tslint": "ts-node scripts/tslint"
+    "tslint": "ts-node scripts/tslint",
+    "mailserver": "java -jar C:/Zimmermann/fakesmtp/fakeSMTP-2.0.jar --start-server --port 25000 --memory-mode",
+    "mailserver_osx": "java -jar /Volumes/BOOTCAMP/Zimmermann/fakesmtp/fakeSMTP-2.0.jar --start-server --port 25000 --memory-mode"
   },
   "author": "SWE Gruppenprojekt",
   "license": "GPL-3.0",
