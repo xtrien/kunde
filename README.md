@@ -5,22 +5,20 @@
 Projekt:
 (y) – Node
 (y) – Express als Middleware zzgl. body-parser
-– MongoDB und  mongoose
-– TypeScript mit TSLint
-– validator
-– nodemailer
-– bcrypt
-– JWT
-– winston
+(y) MongoDB und mongoose
+(y) TypeScript mit TSLint
+(y) validator
+(y) nodemailer
+(y) bcrypt
+(y) JWT
+(y) winston
 – Mocha als Testrunner, supertest für Integrationstests, Chai als Assertion-Bibliothek
-– npm als Package Manager und Task Runner
-– GraphQL als Alternative zu REST
+(y) npm als Package Manager und Task Runner
+(y) GraphQL als Alternative zu REST
 
 Erwartet:
 – Projektplan mit Project Professional https://hs-karlsruhe.onthehub.com/WebStore/Welcome.aspx https://www.hs-karlsruhe.de/iz/servicekatalog/microsoft-imagine-premium
 – Zeiterfassungmitz.B.Excel
-
-
 
 ##Routineaufgaben
 
@@ -43,7 +41,7 @@ Manueller start mit Compass
 -   Zuerst die Codequalität mit _tslint_ prüfen und dann
 -   .ts-Dateien durch _tsc_ in das Verzeichnis `dist` übersetzen
 
-### Starten des Appservers (mit Node.js und Express) mit _nodemon
+### Starten des Appservers (mit Node.js und Express) mit \_nodemon
 
 Durch _nodemon_ (= Node Monitor) wird der Appserver so gestartet, dass er
 JavaScript-Dateien im laufenden Betrieb nachlädt, wenn sie später aktualisiert
@@ -58,7 +56,6 @@ Von Zeit zu Zeit hängt sich nodemon auf und muss dann halt neu gestartet werden
 
 Falls _nodemon_ nicht vernünftig funktioniert, kann man auch den Appserver
 direkt starten (s.u.) und muss diesen dann _bei jeder Änderung_ neu starten.
-
 
 ## Tests aufrufen
 

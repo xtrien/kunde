@@ -1,17 +1,59 @@
-export const typeDefs = `
+import gql from 'graphql-tag'
+
+export const typeDefs = gql`
     # The "Query" type is the root of all GraphQL queries.
     type Query {
-    getKunde(vorname: String!): Kunde
+        einKunde(email: String): Kunde
+        alleKunden: [Kunde]
     }
 
     # Mutation type to modify data
     type Mutation {
-    deleteKunde(vorname: String!): Kunde
+        addKunde(
+            email: String!
+            passWord: String!
+            vorName: String
+            nachName: String
+            strasse: String
+            hausNummer: String
+            plz: String
+            stadt: String
+            land: String
+            telefon: String
+        ): MutationResult
+        changeKunde(
+            email: String!
+            passWord: String
+            vorName: String
+            nachName: String
+            strasse: String
+            hausNummer: String
+            plz: String
+            stadt: String
+            land: String
+            telefon: String
+        ): MutationResult
+        deleteKunde(email: String!): MutationResult
+        login(email: String!, password: String!): MutationResult
     }
 
-    "Publically accessible Kunden profile"
-    type Kunde {
-    vorname: String!
-    nachname: String!
+    "Wird bei Ausfuehren einer Mutation zurueck gegeben"
+    type MutationResult {
+        status: String!
+        message: String!
     }
-`;
+
+    "Kundenprofil"
+    type Kunde {
+        email: String!
+        passWord: String!
+        vorName: String
+        nachName: String
+        strasse: String
+        hausNummer: String
+        plz: String
+        stadt: String
+        land: String
+        telefon: String
+    }
+`
