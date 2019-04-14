@@ -11,7 +11,7 @@
 - (y) winston
 - (y) npm als Package Manager und Task Runner
 - (y) GraphQL als Alternative zu REST
-– TODO: rest. Express als Middleware zzgl. body-parser
+- TODO: rest. Express als Middleware zzgl. body-parser
 - TODO: Mocha als Testrunner, supertest für Integrationstests, Chai als Assertion-Bibliothek
 
 #### Erwartet:
