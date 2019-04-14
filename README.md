@@ -6,12 +6,12 @@ Projekt:
 (y) – Node
 (y) – Express als Middleware zzgl. body-parser
 (y) MongoDB und mongoose
-– TypeScript mit TSLint
-– validator
-– nodemailer
+(y) TypeScript mit TSLint
+(y) validator
+(y) nodemailer
 (y) bcrypt
 (y) JWT
-– winston
+(y) winston
 – Mocha als Testrunner, supertest für Integrationstests, Chai als Assertion-Bibliothek
 (y) npm als Package Manager und Task Runner
 (y) GraphQL als Alternative zu REST
@@ -38,8 +38,8 @@ Manueller start mit Compass
     npm run tsc
 ```
 
-- Zuerst die Codequalität mit _tslint_ prüfen und dann
-- .ts-Dateien durch _tsc_ in das Verzeichnis `dist` übersetzen
+-   Zuerst die Codequalität mit _tslint_ prüfen und dann
+-   .ts-Dateien durch _tsc_ in das Verzeichnis `dist` übersetzen
 
 ### Starten des Appservers (mit Node.js und Express) mit \_nodemon
 
@@ -61,8 +61,8 @@ direkt starten (s.u.) und muss diesen dann _bei jeder Änderung_ neu starten.
 
 ### Voraussetzungen
 
-- Der MongoDB-Server muss laufen
-- Der Appserver darf _nicht_ laufen
+-   Der MongoDB-Server muss laufen
+-   Der Appserver darf _nicht_ laufen
 
 ### Aufruf in einer Powershell
 

@@ -1,54 +1,53 @@
 // https://brianflove.com/2016/10/04/typescript-declaring-mongoose-schema-model/
 
-import { Document, Schema, model } from "mongoose";
-const mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
-import { logger } from "../shared/logger";
+import { connect, connection, Document, model, Schema } from 'mongoose'
+import { isEmail } from 'validator'
 
-const url = "mongodb://localhost:27017/kunde";
+import { logger } from '../shared/logger'
 
-mongoose.connect(url, { useNewUrlParser: true });
-mongoose.connection.once("open", () =>
-  logger.info(`Connected to mongo at ${url}`)
-);
+const url = 'mongodb://localhost:27017/kunde'
 
-import { isEmail } from "validator";
+connect(
+    url,
+    { useNewUrlParser: true },
+)
+connection.once('open', () => logger.info(`Connected to mongo at ${url}`))
 
 interface KundeDocument extends Document {
-  email?: string;
-  passWord?: string;
-  vorName: string;
-  nachName: string;
-  strasse: string;
-  hausNummer: string;
-  plz: string;
-  stadt: string;
-  land: string;
-  telefon: string;
+    email?: string
+    passWord?: string
+    vorName: string
+    nachName: string
+    strasse: string
+    hausNummer: string
+    plz: string
+    stadt: string
+    land: string
+    telefon: string
 }
 
 const schema = new Schema({
-  email: { type: String, required: true, unique: true },
-  passWord: { type: String, required: true },
-  vorName: { type: String },
-  nachName: { type: String },
-  strasse: { type: String },
-  hausNummer: { type: String },
-  plz: { type: String },
-  stadt: { type: String },
-  land: { type: String },
-  telefon: { type: String }
-});
+    email: { type: String, required: true, unique: true },
+    passWord: { type: String, required: true },
+    vorName: { type: String },
+    nachName: { type: String },
+    strasse: { type: String },
+    hausNummer: { type: String },
+    plz: { type: String },
+    stadt: { type: String },
+    land: { type: String },
+    telefon: { type: String },
+})
 
-export const Kunde = model<KundeDocument>("Kunde", schema);
+export const kundeModel = model<KundeDocument>('Kunde', schema)
 
 // Validierung mit validator
 export const validateKunde = (kunde: any) => {
-  const err: any = {};
+    const err: any = {}
 
-  if (!isEmail(kunde.email)) {
-    err.status = "invalid";
-    err.message = "Ein Kunde muss eine gueltige Email haben.";
-  }
-  return Object.keys(err).length === 0 ? undefined : err;
-};
+    if (!isEmail(kunde.email)) {
+        err.status = 'invalid'
+        err.message = 'Ein Kunde muss eine gueltige Email haben.'
+    }
+    return Object.keys(err).length === 0 ? undefined : err
+}

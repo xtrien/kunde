@@ -16,56 +16,56 @@
  */
 
 import {
-  createTransport,
-  SendMailOptions,
-  SentMessageInfo,
-  Transporter
-} from "nodemailer";
+    createTransport,
+    SendMailOptions,
+    SentMessageInfo,
+    Transporter,
+} from 'nodemailer'
 
 const MAIL_CONFIG = {
-  from: '"Joe Doe" <nnvv0011@hs-karlsruhe.de>',
-  transport: {
-    host: "127.0.0.1",
-    port: 25000,
+    from: '"Joe Doe" <nnvv0011@hs-karlsruhe.de>',
+    transport: {
+        host: '127.0.0.1',
+        port: 25000,
 
-    // HS Karlsruhe:
-    // port: 25,
-    // host: 'smtp.hs-karlsruhe.de',
-    secure: false,
+        // HS Karlsruhe:
+        // port: 25,
+        // host: 'smtp.hs-karlsruhe.de',
+        secure: false,
 
-    // Googlemail:
-    // service: 'gmail',
-    // auth: {
-    //     user: 'user@gmail.com',
-    //     pass: 'mypassword'
-    // }
+        // Googlemail:
+        // service: 'gmail',
+        // auth: {
+        //     user: 'user@gmail.com',
+        //     pass: 'mypassword'
+        // }
 
-    priority: "normal",
-    logger: true,
-    headers: { "X-ProvidedBy": "Software Engineering" }
-  }
-};
+        priority: 'normal',
+        logger: true,
+        headers: { 'X-ProvidedBy': 'Software Engineering' },
+    },
+}
 
-import { logger } from "./logger";
+import { logger } from './logger'
 
-const transporter: Transporter = createTransport(MAIL_CONFIG.transport);
+const transporter: Transporter = createTransport(MAIL_CONFIG.transport)
 
 export const sendMail = async (
-  to: string | Array<string>,
-  subject: string,
-  body: string
+    to: string | Array<string>,
+    subject: string,
+    body: string,
 ) => {
-  const { from } = MAIL_CONFIG;
-  const data: SendMailOptions = { from, to, subject, html: body };
-  logger.debug(`sendMail(): ${JSON.stringify(data)}`);
+    const { from } = MAIL_CONFIG
+    const data: SendMailOptions = { from, to, subject, html: body }
+    logger.debug(`sendMail(): ${JSON.stringify(data)}`)
 
-  const sendMailCb = (err: Error | null, info: SentMessageInfo) => {
-    if (err !== null) {
-      logger.warn(JSON.stringify(err));
-      return;
+    const sendMailCb = (err: Error | null, info: SentMessageInfo) => {
+        if (err !== null) {
+            logger.warn(JSON.stringify(err))
+            return
+        }
+
+        logger.debug(`Email verschickt: ${info.response}`)
     }
-
-    logger.debug(`Email verschickt: ${info.response}`);
-  };
-  transporter.sendMail(data, sendMailCb);
-};
+    transporter.sendMail(data, sendMailCb)
+}
