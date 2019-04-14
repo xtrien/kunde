@@ -1,8 +1,6 @@
 # SWE Projekt Aufgabe 1: ME(A)N
 
-1. Node module installieren mit `npm i`
-
-Projekt:
+#### Projekt:
 – (y)  Node
 - (y) MongoDB und mongoose
 - (y) TypeScript mit TSLint
@@ -13,14 +11,16 @@ Projekt:
 - (y) winston
 - (y) npm als Package Manager und Task Runner
 - (y) GraphQL als Alternative zu REST
-– (y/TODO: rest) Express als Middleware zzgl. body-parser
-– TODO: Mocha als Testrunner, supertest für Integrationstests, Chai als Assertion-Bibliothek
+– TODO: rest. Express als Middleware zzgl. body-parser
+- TODO: Mocha als Testrunner, supertest für Integrationstests, Chai als Assertion-Bibliothek
 
-Erwartet:
-– Projektplan mit Project Professional https://hs-karlsruhe.onthehub.com/WebStore/Welcome.aspx https://www.hs-karlsruhe.de/iz/servicekatalog/microsoft-imagine-premium
-– Zeiterfassung mit z.B. Excel
+#### Erwartet:
+- Projektplan mit Project Professional
+- Zeiterfassung mit z.B. Excel
 
 ## Routineaufgaben
+
+Node module installieren mit `npm i`
 
 ## Starten der Entwicklungs-Preview
 
