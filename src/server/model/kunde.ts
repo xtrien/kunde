@@ -11,7 +11,7 @@ mongoose.connection.once("open", () =>
   console.log(`Connected to mongo at ${url}`)
 );
 
-import { isUUID } from "validator";
+import { isEmail } from "validator";
 
 interface KundeDocument extends Document {
   email?: string;
@@ -42,18 +42,12 @@ const schema = new Schema({
 export const Kunde = model<KundeDocument>("Kunde", schema);
 
 // Validierung mit validator
-const isEmpty = (obj: string | undefined) =>
-  obj === undefined || obj === null || obj === "";
-
 export const validateKunde = (kunde: any) => {
   const err: any = {};
-  const { email } = kunde;
 
-  if (!kunde.isNew && !isUUID(kunde._id)) {
-    err.id = "Der Kunde hat eine ungueltige ID.";
-  }
-  if (isEmpty(email)) {
-    err.titel = "Ein Kunde  muss eine email haben.";
+  if (!isEmail(kunde.email)) {
+    err.status = "invalid";
+    err.message = "Ein Kunde muss eine gueltige Email haben.";
   }
   return Object.keys(err).length === 0 ? undefined : err;
 };

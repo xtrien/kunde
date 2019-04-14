@@ -3,8 +3,17 @@ import express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 import { resolvers } from "./graphql/resolvers";
 import { typeDefs } from "./graphql/typeDefs";
+const { verifyKunde } = require("./crypt/auth");
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: async ({ req }: any) => {
+    const token = req.headers.authorization || "";
+    const kunde = await verifyKunde(token);
+    return { kunde };
+  }
+});
 
 const app = express();
 server.applyMiddleware({ app });

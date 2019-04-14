@@ -34,7 +34,7 @@ export const typeDefs = gql`
       telefon: String
     ): MutationResult
     deleteKunde(email: String!): MutationResult
-    login(email: String!, password: String!): String
+    login(email: String!, password: String!): MutationResult
   }
 
   "Wird bei Ausfuehren einer Mutation zurueck gegeben"
