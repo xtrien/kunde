@@ -1,0 +1,55 @@
+query einKunde{
+  einKunde(email: "admin@admin.admin"){
+    vorName
+    nachName
+    land
+  }
+}
+
+query alleKunden {
+  alleKunden {
+    vorName
+    nachName
+    email
+  }
+}
+
+mutation addKunde {
+  addKunde(
+    vorName: "Albert"
+    nachName: "Admin"
+    email: "admin@admin.admin"
+    passWord: "123456"
+    strasse: "Musterallee"
+    hausNummer: "12"
+    plz: "1337"
+    stadt: "Adminhausen"
+  ) {
+    status
+    message
+  }
+}
+
+mutation changeKunde {
+  changeKunde(
+    vorName: "Super"
+    nachName: "User"
+    email: "admin@admin.admin"
+    passWord: "8XD94R+5;n)eK"
+    strasse: "Zum Sicheren Passwort"
+    hausNummer: "12"
+    plz: "1337"
+    stadt: "Adminhausen"
+    land: "Internetz"
+  ) {
+    status
+    message
+  }
+}
+
+mutation deleteKunde{
+  deleteKunde(email: "admin@admin.admin"){
+    status
+    message
+  }
+}

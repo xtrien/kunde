@@ -1,65 +1,48 @@
 import { Kunde } from "../model/kunde";
-export const login = async (email, password) => {};
+import { hashPw, checkPw } from "../crypt/crypt";
 
-export const addKunde = async (
-  email: string,
-  vorName: string,
-  nachName: string,
-  strasse: string,
-  hausNummer: string,
-  plz: string,
-  stadt: string,
-  land: string,
-  telefon: string
-) => {
-  Kunde.create({
-    email: "aa@bb.cc",
-    passWord: "1234"
-    // email,
-    // vorName,
-    // nachName,
-    // strasse,
-    // hausNummer,
-    // plz,
-    // stadt,
-    // land,
-    // telefon
-  });
-  return "Done";
+export const login = async (email: string, password: string) => {};
+
+export const addKunde = async (args: any) => {
+  const hashedpw = await hashPw(args.passWord);
+  args.passWord = hashedpw;
+  return await Kunde.create(args)
+    .then(function() {
+      return { status: "success", message: "Kunde wurde erfolgreich erstellt" };
+    })
+    .catch(function(err: object) {
+      return { status: "error", message: err.errmsg };
+    });
 };
 
-export const changeKunde = async (
-  email,
-  vorName,
-  nachName,
-  strasse,
-  hausNummer,
-  plz,
-  stadt,
-  land,
-  telefon
-) => {
-  return await Kunde.update(
-    email,
-    vorName,
-    nachName,
-    strasse,
-    hausNummer,
-    plz,
-    stadt,
-    land,
-    telefon
-  );
+export const changeKunde = async (args: object) => {
+  return await Kunde.findOneAndUpdate({ email: args.email }, args)
+    .then(function() {
+      return { status: "success", message: "Kunde wurde erfolgreich geändert" };
+    })
+    .catch(function(err: object) {
+      return { status: "error", message: err.errmsg };
+    });
 };
 
-export const deleteKunde = async id => {
-  return await Kunde.delete(id);
+export const deleteKunde = async (args: object) => {
+  return await Kunde.deleteOne({ email: args.email })
+    .then(function() {
+      return { status: "success", message: "Kunde wurde erfolgreich gelöscht" };
+    })
+    .catch(function(err: object) {
+      return { status: "error", message: err.errmsg };
+    });
 };
 
 export const alleKunden = async () => {
-  return await Kunde.find();
+  return await Kunde.find().then(function(res: object) {
+    return res;
+  });
 };
 
-export const einKunde = async id => {
-  return await Kunde.findById(id);
+export const einKunde = async (args: object) => {
+  return await Kunde.findOne({ email: args.email }).then(function(res: object) {
+    return res;
+  });
 };

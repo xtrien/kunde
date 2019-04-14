@@ -10,62 +10,22 @@ import {
 export const resolvers = {
   Query: {
     alleKunden: async () => {
-      alleKunden();
+      return alleKunden();
     },
-    einKunde: async id => {
-      einKunde(id);
+    einKunde: async (_: any, args: object) => {
+      return einKunde(args);
     }
   },
   Mutation: {
-    deleteKunde: async id => deleteKunde(id),
-    changeKunde: async (
-      email,
-      passWord,
-      vorName,
-      nachName,
-      strasse,
-      hausNummer,
-      plz,
-      stadt,
-      land,
-      telefon
-    ) =>
-      changeKunde(
-        email,
-        passWord,
-        vorName,
-        nachName,
-        strasse,
-        hausNummer,
-        plz,
-        stadt,
-        land,
-        telefon
-      ),
-    addKunde: async (
-      email,
-      passWord,
-      vorName,
-      nachName,
-      strasse,
-      hausNummer,
-      plz,
-      stadt,
-      land,
-      telefon
-    ) =>
-      addKunde(
-        email,
-        passWord,
-        vorName,
-        nachName,
-        strasse,
-        hausNummer,
-        plz,
-        stadt,
-        land,
-        telefon
-      ),
-    login: async (email, password) => login(email, password)
+    deleteKunde: async (_: any, args: object) => {
+      return deleteKunde(args);
+    },
+    changeKunde: async (_: any, args: object) => {
+      return changeKunde(args);
+    },
+    addKunde: async (_: any, args: object) => {
+      return addKunde(args);
+    },
+    login: async (_: any, args: object) => login(args)
   }
 };

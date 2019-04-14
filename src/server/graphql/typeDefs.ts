@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export const typeDefs = gql`
   # The "Query" type is the root of all GraphQL queries.
   type Query {
-    einKunde(id: ID!): Kunde
+    einKunde(email: String): Kunde
     alleKunden: [Kunde]
   }
 
@@ -20,9 +20,9 @@ export const typeDefs = gql`
       stadt: String
       land: String
       telefon: String
-    ): Kunde
+    ): MutationResult
     changeKunde(
-      email: String
+      email: String!
       passWord: String
       vorName: String
       nachName: String
@@ -32,9 +32,15 @@ export const typeDefs = gql`
       stadt: String
       land: String
       telefon: String
-    ): Kunde
-    deleteKunde(id: ID!): Kunde
+    ): MutationResult
+    deleteKunde(email: String!): MutationResult
     login(email: String!, password: String!): String
+  }
+
+  "Wird bei Ausfuehren einer Mutation zurueck gegeben"
+  type MutationResult {
+    status: String!
+    message: String!
   }
 
   "Kundenprofil"
