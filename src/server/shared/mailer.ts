@@ -46,7 +46,7 @@ const MAIL_CONFIG = {
   }
 };
 
-// import { logger } from './logger'
+import { logger } from "./logger";
 
 const transporter: Transporter = createTransport(MAIL_CONFIG.transport);
 
@@ -57,15 +57,15 @@ export const sendMail = async (
 ) => {
   const { from } = MAIL_CONFIG;
   const data: SendMailOptions = { from, to, subject, html: body };
-  // logger.debug(`sendMail(): ${JSON.stringify(data)}`)
+  logger.debug(`sendMail(): ${JSON.stringify(data)}`);
 
   const sendMailCb = (err: Error | null, info: SentMessageInfo) => {
     if (err !== null) {
-      // logger.warn(JSON.stringify(err))
+      logger.warn(JSON.stringify(err));
       return;
     }
 
-    // logger.debug(`Email verschickt: ${info.response}`)
+    logger.debug(`Email verschickt: ${info.response}`);
   };
   transporter.sendMail(data, sendMailCb);
 };

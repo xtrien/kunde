@@ -4,6 +4,7 @@ const { ApolloServer } = require("apollo-server-express");
 import { resolvers } from "./graphql/resolvers";
 import { typeDefs } from "./graphql/typeDefs";
 const { verifyKunde } = require("./auth/jwt");
+import { logger } from "./shared/logger";
 
 const server = new ApolloServer({
   typeDefs,
@@ -23,6 +24,10 @@ app.get("/", function(req, res) {
   res.send("Hello World!");
 });
 
+// Todo: Rest-Schnittstelle
+
 app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  logger.info(
+    `🚀 Server gestartet unter http://localhost:4000${server.graphqlPath}`
+  )
 );

@@ -3,12 +3,13 @@
 import { Document, Schema, model } from "mongoose";
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
+import { logger } from "../shared/logger";
 
 const url = "mongodb://localhost:27017/kunde";
 
 mongoose.connect(url, { useNewUrlParser: true });
 mongoose.connection.once("open", () =>
-  console.log(`Connected to mongo at ${url}`)
+  logger.info(`Connected to mongo at ${url}`)
 );
 
 import { isEmail } from "validator";

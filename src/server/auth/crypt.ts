@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+import { logger } from "../shared/logger";
 
 export const hashPw = async (plainTextPassword: string) => {
   return await bcrypt
@@ -17,5 +18,8 @@ export const checkPw = async (
     .compare(plainTextPassword, HashedPassword)
     .then(function(res: boolean) {
       return res;
+    })
+    .catch(function(err: any) {
+      logger.error(`Passwort kann nicht validiert werden ${err}`);
     });
 };
