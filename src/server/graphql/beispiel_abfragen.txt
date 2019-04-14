@@ -53,3 +53,10 @@ mutation deleteKunde{
     message
   }
 }
+
+mutation login{
+  login(email: "admin@admin.admin" password:"123456"){
+    status
+    message
+  }
+}

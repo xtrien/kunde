@@ -3,7 +3,7 @@ import express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 import { resolvers } from "./graphql/resolvers";
 import { typeDefs } from "./graphql/typeDefs";
-const { verifyKunde } = require("./crypt/auth");
+const { verifyKunde } = require("./auth/jwt");
 
 const server = new ApolloServer({
   typeDefs,

@@ -1,7 +1,7 @@
 import { Kunde, validateKunde } from "../model/kunde";
-import { hashPw, checkPw } from "../crypt/crypt";
-import { sendMail } from "../mail/mailer";
-const { createToken } = require("../crypt/auth");
+import { hashPw, checkPw } from "../auth/crypt";
+import { sendMail } from "../shared/mailer";
+const { createToken } = require("../auth/jwt");
 
 export const login = async (args: any) => {
   return await Kunde.findOne({ email: args.email })
