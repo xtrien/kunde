@@ -4,12 +4,10 @@ import * as bodyParser from 'body-parser'
 import * as express from 'express'
 
 import { verifyKunde } from './auth/jwt'
-import { login } from './db/mongo'
+import { login, alleKunden } from './db/mongo'
 import { resolvers } from './graphql/resolvers'
 import { typeDefs } from './graphql/typeDefs'
 import { logger } from './shared/logger'
-
-const { Router } = express
 
 const server = new ApolloServer({
     typeDefs,
@@ -37,6 +35,17 @@ app.post(`${basePath}/login`, (request, response) => {
     login(request.body).then((result) => {
         response.send(result)
     })
+})
+
+app.get(`${basePath}/kunden`, (request, response) => {
+    const token = request.headers.authorization
+    verifyKunde(token)
+        .then((kunde) => {
+            return alleKunden(kunde)
+        })
+        .then((alle) => {
+            response.send(alle)
+        })
 })
 
 app.listen({ port: 4000 }, () =>
