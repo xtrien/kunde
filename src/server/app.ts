@@ -32,12 +32,6 @@ app.get('/', (req, res) => {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// Todo: Rest-Schnittstelle
-const router = Router()
-// router.get('/', (req, res) => {
-// })
-router.use('/', router)
-
 const basePath = '/rest'
 app.post(`${basePath}/login`, (request, response) => {
     login(request.body).then((result) => {
