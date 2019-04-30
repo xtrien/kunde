@@ -1,8 +1,10 @@
 // https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express
 import { ApolloServer } from 'apollo-server-express'
+import * as bodyParser from 'body-parser'
 import * as express from 'express'
 
 import { verifyKunde } from './auth/jwt'
+import { login, alleKunden } from './db/mongo'
 import { resolvers } from './graphql/resolvers'
 import { typeDefs } from './graphql/typeDefs'
 import { logger } from './shared/logger'
@@ -25,7 +27,26 @@ app.get('/', (req, res) => {
     res.send(`Hello World! ${req}`)
 })
 
-// Todo: Rest-Schnittstelle
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+const basePath = '/rest'
+app.post(`${basePath}/login`, (request, response) => {
+    login(request.body).then((result) => {
+        response.send(result)
+    })
+})
+
+app.get(`${basePath}/kunden`, (request, response) => {
+    const token = request.headers.authorization
+    verifyKunde(token)
+        .then((kunde) => {
+            return alleKunden(kunde)
+        })
+        .then((alle) => {
+            response.send(alle)
+        })
+})
 
 app.listen({ port: 4000 }, () =>
     logger.info(
