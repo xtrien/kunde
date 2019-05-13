@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "ts-node-dev --respawn --transpileOnly ./src/server/app.ts",
         "start": "node dist/server/app.js",
-        "test": "mocha 'dist/test/rest/apiTest.js'",
+        "test": "mocha --exit 'dist/test/rest/apiTest.js'",
         "tsc": "npx --no-install tsc -w",
         "tslint": "ts-node scripts/tslint",
         "prettier": "npx prettier --write src/**/*.ts",
