@@ -20,6 +20,7 @@ import {
     SendMailOptions,
     SentMessageInfo,
     Transporter,
+    TransportOptions,
 } from 'nodemailer'
 
 const MAIL_CONFIG = {
@@ -48,7 +49,7 @@ const MAIL_CONFIG = {
 
 import { logger } from './logger'
 
-const transporter: Transporter = createTransport(MAIL_CONFIG.transport)
+const transporter: Transporter = createTransport(MAIL_CONFIG.transport as TransportOptions)
 
 export const sendMail = async (
     to: string | Array<string>,

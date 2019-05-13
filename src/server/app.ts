@@ -1,7 +1,7 @@
 // https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express
 import { ApolloServer } from 'apollo-server-express'
-import * as bodyParser from 'body-parser'
-import * as express from 'express'
+import bodyParser from 'body-parser'
+import express from 'express'
 
 import { verifyKunde } from './auth/jwt'
 import { alleKunden, login } from './db/mongo'
