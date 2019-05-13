@@ -14,9 +14,9 @@ export const createToken = (email: string) => {
 }
 
 // Ueberprueft Gueltigkeit des JWT und gibt user email zurueck falls gueltig
-export const verifyKunde = async (token: string) => {
+export const verifyKunde = (token: string) => {
     try {
-        const verify: any = await jwt.verify(token, JWT_SECRET, {
+        const verify: any = jwt.verify(token, JWT_SECRET, {
             issuer: JWT_ISSUER,
         })
         return verify.email

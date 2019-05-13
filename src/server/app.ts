@@ -12,9 +12,9 @@ import { logger } from './shared/logger'
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async ({ req }: any) => {
+    context: ({ req }: any) => {
         const token = req.headers.authorization
-        const kunde = await verifyKunde(token)
+        const kunde = verifyKunde(token)
         return { kunde }
     },
 })

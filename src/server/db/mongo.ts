@@ -11,7 +11,7 @@ export const login = async (args: any) => {
             const isValid = await checkPw(args.password, res.passWord)
             if (isValid === true) {
                 logger.debug('Login erfolgt')
-                const token = await createToken(args.email)
+                const token = createToken(args.email)
                 return { status: 'success', message: token }
             }
             return { status: 'invalid', message: 'Passwort ungueltig' }
