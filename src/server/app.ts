@@ -39,15 +39,23 @@ app.post(`${basePath}/login`, (request, response) => {
 
 app.get(`${basePath}/kunden`, (request, response) => {
     const token = request.headers.authorization
-    if (typeof token !== 'undefined') {
-        verifyKunde(token)
-        .then((kunde) => {
-            return alleKunden(kunde)
-        })
-        .then((alle) => {
-            response.send(alle)
-        })
+    if (typeof token === 'string') {
+        const email = verifyKunde(token)
+        if (email) {
+            alleKunden(email)
+                .then((kunden) => {
+                    response.send(kunden)
+                })
+                .catch(error => {
+                    response.statusCode = 500
+                    response.send(error)
+                })
+            return
+        }
     }
+
+    response.statusCode = 401
+    response.send() // TODO: Proper error message?
 })
 
 app.listen({ port: 4000 }, () =>
