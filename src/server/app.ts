@@ -35,12 +35,12 @@ export const basePath = '/rest'
 app.post(`${basePath}/login`, (request, response) => {
     login(request.body)
         .then((result) => {
-        response.send(result)
-    })
+            response.send(result)
+        })
         .catch(error => {
             response.status(HttpStatus.INTERNAL_ERROR)
             response.send(error)
-})
+        })
 })
 
 app.get(`${basePath}/kunden`, (request, response) => {
