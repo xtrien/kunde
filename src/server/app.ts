@@ -8,6 +8,7 @@ import { alleKunden, login } from './db/mongo'
 import { resolvers } from './graphql/resolvers'
 import { typeDefs } from './graphql/typeDefs'
 import { logger } from './shared/logger'
+import { HttpStatus } from './shared/statusCodes'
 
 const server = new ApolloServer({
     typeDefs,
@@ -32,9 +33,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 export const basePath = '/rest'
 app.post(`${basePath}/login`, (request, response) => {
-    login(request.body).then((result) => {
+    login(request.body)
+        .then((result) => {
         response.send(result)
     })
+        .catch(error => {
+            response.status(HttpStatus.INTERNAL_ERROR)
+            response.send(error)
+})
 })
 
 app.get(`${basePath}/kunden`, (request, response) => {
@@ -47,15 +53,14 @@ app.get(`${basePath}/kunden`, (request, response) => {
                     response.send(kunden)
                 })
                 .catch(error => {
-                    response.statusCode = 500
+                    response.status(HttpStatus.INTERNAL_ERROR)
                     response.send(error)
                 })
             return
         }
     }
 
-    response.statusCode = 401
-    response.send() // TODO: Proper error message?
+    response.status(HttpStatus.UNAUTHORIZED)
 })
 
 app.listen({ port: 4000 }, () =>
