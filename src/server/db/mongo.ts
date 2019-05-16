@@ -4,7 +4,7 @@ import { kundeModel, validateKunde } from '../model/kunde'
 import { logger } from '../shared/logger'
 import { sendMail } from '../shared/mailer'
 
-export const login = async (args: any) => {
+export const login = async (args: any) => {)
     return kundeModel
         .findOne({ email: args.email })
         .then(async (res: any) => {
