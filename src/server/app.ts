@@ -1,14 +1,13 @@
 // https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express
 import { ApolloServer } from 'apollo-server-express'
-
 import bodyParser from 'body-parser'
 import express from 'express'
 
 import { verifyKunde } from './auth/jwt'
-import { alleKunden, login } from './db/mongo'
-
+import { addKunde, alleKunden, deleteKunde, einKunde, login } from './db/mongo'
 import { resolvers } from './graphql/resolvers'
 import { typeDefs } from './graphql/typeDefs'
+import { kundeModel } from './model/kunde'
 import { logger } from './shared/logger'
 import { HttpStatus } from './shared/statusCodes'
 
@@ -63,6 +62,38 @@ app.get(`${basePath}/kunden`, (request, response) => {
     }
     response.status(HttpStatus.UNAUTHORIZED)
 
+})
+
+// Einzelnen Kunde suchen
+app.get(`${basePath}/kunden/:id`, (request, response) => {
+    const foundKunde = einKunde(kundeModel, request.params.id)
+    if (foundKunde !== undefined) {
+      response.send(foundKunde)
+    } else {
+      response.status(HttpStatus.NOT_FOUND).send()
+    }
+})
+
+// Kunde anlegen
+app.post(`${basePath}/kunden`, (request, response) => {
+    const receivedKunde = addKunde(request.query)
+    if (receivedKunde !== undefined) {
+        response.status(HttpStatus.CREATED)
+        response.send(receivedKunde)
+    } else {
+        response.status(HttpStatus.BAD_REQUEST).send()
+    }
+})
+
+// Kunde löschen
+app.delete(`${basePath}/kunden/:id`, (request, response) => {
+    const id = request.params.id
+    if (id !== undefined) {
+        deleteKunde(kundeModel, request.params.id)
+        response.status(HttpStatus.NO_CONTENT).send()
+      } else {
+        response.status(HttpStatus.NOT_FOUND).send()
+      }
 })
 
 app.listen({ port: 4000 }, () =>
