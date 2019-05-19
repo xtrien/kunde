@@ -4,14 +4,14 @@ import { kundeModel, validateKunde } from '../model/kunde'
 import { logger } from '../shared/logger'
 import { sendMail } from '../shared/mailer'
 
-export const login = async (args: any) => {
+export const login = async (args: any) => {)
     return kundeModel
         .findOne({ email: args.email })
         .then(async (res: any) => {
             const isValid = await checkPw(args.password, res.passWord)
             if (isValid === true) {
                 logger.debug('Login erfolgt')
-                const token = await createToken(args.email)
+                const token = createToken(args.email)
                 return { status: 'success', message: token }
             }
             return { status: 'invalid', message: 'Passwort ungueltig' }

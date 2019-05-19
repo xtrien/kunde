@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "ts-node-dev --respawn --transpileOnly ./src/server/app.ts",
         "start": "node dist/server/app.js",
-        "test": "mocha 'dist/test/rest/apiTest.js'",
+        "test": "mocha --exit 'dist/test/rest/apiTest.js'",
         "tsc": "npx --no-install tsc -w",
         "tslint": "ts-node scripts/tslint",
         "prettier": "npx prettier --write src/**/*.ts",
@@ -31,6 +31,7 @@
         "graphql-tools": "^4.0.4",
         "jsonwebtoken": "^8.5.1",
         "lodash": "^4.17.11",
+        "mochawesome": "^3.1.2",
         "mongodb": "^3.2.3",
         "mongoose": "^5.4.22",
         "nodemailer": "^6.1.0",

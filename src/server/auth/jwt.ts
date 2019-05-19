@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken'
 const JWT_SECRET = 'mysecret' // pruduction environment: sicheren private key von .env einlesen
+const JWT_ISSUER = 'Kundenverwaltung'
 
 // Erzeugt json web token. Dieser wird client-seitig in einem cookie/
 // local storage gespeichert und anschließend bei jdem request als
@@ -7,16 +8,16 @@ const JWT_SECRET = 'mysecret' // pruduction environment: sicheren private key vo
 export const createToken = (email: string) => {
     const token = jwt.sign({ email }, JWT_SECRET, {
         expiresIn: '1w',
-        issuer: 'Kundenverwaltung',
+        issuer: JWT_ISSUER,
     })
     return token
 }
 
 // Ueberprueft Gueltigkeit des JWT und gibt user email zurueck falls gueltig
-export const verifyKunde = async (token: string) => {
+export const verifyKunde = (token: string) => {
     try {
-        const verify: any = await jwt.verify(token, JWT_SECRET, {
-            issuer: 'Kundenverwaltung',
+        const verify: any = jwt.verify(token, JWT_SECRET, {
+            issuer: JWT_ISSUER,
         })
         return verify.email
     } catch {
