@@ -1,10 +1,12 @@
 // https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express
 import { ApolloServer } from 'apollo-server-express'
+
 import bodyParser from 'body-parser'
 import express from 'express'
 
 import { verifyKunde } from './auth/jwt'
 import { alleKunden, login } from './db/mongo'
+
 import { resolvers } from './graphql/resolvers'
 import { typeDefs } from './graphql/typeDefs'
 import { logger } from './shared/logger'
@@ -59,8 +61,8 @@ app.get(`${basePath}/kunden`, (request, response) => {
             return
         }
     }
-
     response.status(HttpStatus.UNAUTHORIZED)
+
 })
 
 app.listen({ port: 4000 }, () =>
