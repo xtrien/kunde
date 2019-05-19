@@ -1,3 +1,5 @@
 node_modules
 dist
 server.log
+mochawesome-report/mochawesome.json
+mochawesome-report/mochawesome.html
