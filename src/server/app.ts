@@ -32,10 +32,21 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 export const basePath = '/rest'
+let errorMessage = {}
+
+// Login
 app.post(`${basePath}/login`, (request, response) => {
     login(request.body)
         .then((result) => {
-            response.send(result)
+            if (result.status === 'error') {
+                errorMessage = { status: 'error', message: 'Falsche Mailadresse' }
+                response.status(HttpStatus.FORBIDDEN).send(errorMessage)
+            } else if (result.status === 'invalid') {
+                errorMessage = { status: 'invalid', message: 'Falsches Passwort' }
+                response.status(HttpStatus.FORBIDDEN).send(errorMessage)
+            } else {
+                response.send(result)
+            }
         })
         .catch(error => {
             response.status(HttpStatus.INTERNAL_ERROR)
@@ -43,6 +54,7 @@ app.post(`${basePath}/login`, (request, response) => {
         })
 })
 
+// Alle Kunden ausgeben
 app.get(`${basePath}/kunden`, (request, response) => {
     const token = request.headers.authorization
     if (typeof token === 'string') {
@@ -58,9 +70,10 @@ app.get(`${basePath}/kunden`, (request, response) => {
                 })
             return
         }
+        errorMessage = { status: 'invalid', message: 'Nicht authorisiert' }
+        response.status(HttpStatus.UNAUTHORIZED).send(errorMessage)
     }
-
-    response.status(HttpStatus.UNAUTHORIZED)
+    return
 })
 
 app.listen({ port: 4000 }, () =>
