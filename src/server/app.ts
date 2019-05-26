@@ -114,23 +114,14 @@ app.post(`${basePath}/kunden`, async (req, res) => {
 })
 
 // Kunde löschen
-app.delete(`${basePath}/kunden/:email`, (request, response) => {
-    const token = request.headers.authorization
-    if (typeof token === 'string') {
-        const email = verifyKunde(token)
-        if (email) {
-            deleteKunde(kundeModel, request.params.id)
-                .then(() => {
-                    response.status(HttpStatus.NO_CONTENT)
-                })
-                .catch(error => {
-                    response.status(HttpStatus.NOT_FOUND)
-                    response.send(error)
-                })
-            return
-        }
-        errorMessage = { status : 'invalid' , message: 'Nicht authorisiert'}
-        response.status(HttpStatus.UNAUTHORIZED).send(errorMessage)
+// Kunde löschen
+app.delete(`${basePath}/kunden/:email`, async (req, res) => {
+    const mongo = await deleteKunde(kundeModel, req.params.id)
+    if (mongo.status === 'error') {
+        res.status(HttpStatus.BAD_REQUEST).send(mongo)
+    }
+    if (mongo.status === 'success') {
+        res.status(HttpStatus.OK).send(mongo)
     }
     return
 })
