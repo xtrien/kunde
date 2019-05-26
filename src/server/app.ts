@@ -100,21 +100,15 @@ app.get(`${basePath}/kunden/:email`, (request, response) => {
 })
 
 // Kunde anlegen
-app.post(`${basePath}/kunden`, (request, response) => {
-    const token = request.headers.authorization
-    if (typeof token === 'string') {
-        const email = verifyKunde(token)
-        if (email) {
-            const receivedKunde = request.query
-            if (validateKunde(request.query)) {
-                addKunde(receivedKunde)
-                response.status(HttpStatus.CREATED)
-                response.send(receivedKunde)
-            } else {
-                response.status(HttpStatus.BAD_REQUEST).send()
-            }
-        }
+app.post(`${basePath}/kunden`, async (req, res) => {
+    const mongo = await addKunde(req.body)
+    if (mongo.status === 'error') {
+        res.status(HttpStatus.BAD_REQUEST).send(mongo)
     }
+    if (mongo.status === 'success') {
+        res.status(HttpStatus.OK).send(mongo)
+    }
+    return
 })
 
 // Kunde löschen
