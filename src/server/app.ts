@@ -81,11 +81,13 @@ app.get(`${basePath}/kunden`, (request, response) => {
 app.get(`${basePath}/kunden/:email`, (request, response) => {
     const token = request.headers.authorization
     if (typeof token === 'string') {
-        const email = verifyKunde(token)
-        if (email) {
-            einKunde(kundeModel, request.params.id)
-               .then((kunde) => {
-                    response.send(kunde)
+        const email = request.params.email
+        const user = verifyKunde(token)
+        if (user) {
+            einKunde({ email }, user)
+                .then(res => {
+                    response.status(HttpStatus.OK)
+                    response.send(res)
                 })
                 .catch(error => {
                     response.status(HttpStatus.INTERNAL_ERROR)
